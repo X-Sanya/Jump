@@ -10,12 +10,15 @@ int main() {
 	DWORD dwBytesWrite = 0;
 	COORD coord = { 40, 29 };
 
- 	Jumper* jumper = new Jumper(&hConsole, coord);
-	jumper->drawJumper();
+ 	Jumper* jumper = new Jumper(&hConsole, coord, 10);
+	jumper->draw();
 
 
 	SetConsoleActiveScreenBuffer(hConsole);
-
+	while(jumper->go()){
+		jumper->draw();
+		Sleep(60);
+	}
 
 	Sleep(15000);
 	delete jumper;

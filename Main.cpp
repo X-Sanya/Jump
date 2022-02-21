@@ -1,7 +1,27 @@
 #include "Jumper.h"
+#include <conio.h>
 
+Jumper* jumper;
 
-int main() {
+bool handler() {
+	char sign = _getch();
+	switch (sign) {
+	case -32:
+		sign = _getch();
+		switch (sign) {
+		case 77:
+			jumper->moveRight();
+			break;
+		case 75:
+			jumper->moveLeft();
+			break;
+		}
+		break;
+	}
+	return 1;
+}
+
+int main(){
 	HANDLE hConsole = CreateConsoleScreenBuffer(GENERIC_READ | GENERIC_WRITE, 0, NULL, CONSOLE_TEXTMODE_BUFFER, NULL);
 	CONSOLE_CURSOR_INFO infCurs = { 1, 0 };
 	CONSOLE_SCREEN_BUFFER_INFO infScr;
@@ -10,14 +30,17 @@ int main() {
 	DWORD dwBytesWrite = 0;
 	COORD coord = { 40, 29 };
 
- 	Jumper* jumper = new Jumper(&hConsole, coord, 10);
+ 	jumper = new Jumper(&hConsole, coord, 6);
 	jumper->draw();
 
 
 	SetConsoleActiveScreenBuffer(hConsole);
 	while(jumper->go()){
+		if (_kbhit())
+			handler();
+
 		jumper->draw();
-		Sleep(60);
+		Sleep(50);
 	}
 
 	Sleep(15000);

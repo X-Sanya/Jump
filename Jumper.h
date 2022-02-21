@@ -16,11 +16,15 @@ private:
 	HANDLE* buffer;
 
 	char eye = '*';
-
+	bool goUp();
+	bool goDown();
 public:
 	Jumper(HANDLE* , COORD, SHORT h  = 6);
 	bool go();
-	void draw();
-
+	bool draw();
+	bool setGround(COORD);
+	bool moveRight();
+	bool moveLeft();
+	bool clear();
 };
 #endif //JUMPMER

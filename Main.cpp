@@ -1,4 +1,5 @@
 #include "Jumper.h"
+#include "Platform.h"
 #include <conio.h>
 
 Jumper* jumper;
@@ -30,20 +31,27 @@ int main(){
 	DWORD dwBytesWrite = 0;
 	COORD coord = { 40, 29 };
 
+	
  	jumper = new Jumper(&hConsole, coord, 6);
+	Platform* platf1 = new Platform(&hConsole, { -1,0 }, 6);
 	jumper->draw();
+	platf1->draw();
 
+	
 
 	SetConsoleActiveScreenBuffer(hConsole);
 	while(jumper->go()){
 		if (_kbhit())
 			handler();
-
+		if (platf1->isPlatform(jumper->getCoord(), 2))
+			jumper->setGround(platf1);
+		platf1->draw();
 		jumper->draw();
 		Sleep(50);
 	}
 
 	Sleep(15000);
 	delete jumper;
+	delete platf1;
 	return 0;
 }

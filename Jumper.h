@@ -1,6 +1,7 @@
 #ifndef JUMPER
 #define JUMPER
 #include <Windows.h>
+#include "Platform.h"
 
 enum class Direction {
 	UP,
@@ -10,8 +11,10 @@ enum class Direction {
 class Jumper {
 private:
 	COORD jumperCoord;
-	COORD groundCoord;
+	Platform* ground;
+	Platform* defGround;
 	SHORT h;
+	SHORT size = 2;
 	Direction dir = Direction::UP;
 	HANDLE* buffer;
 
@@ -19,12 +22,14 @@ private:
 	bool goUp();
 	bool goDown();
 public:
-	Jumper(HANDLE* , COORD, SHORT h  = 6);
+	Jumper(HANDLE* , COORD, SHORT h  = 6 );
+	~Jumper();
 	bool go();
 	bool draw();
-	bool setGround(COORD);
+	bool setGround(Platform*);
 	bool moveRight();
 	bool moveLeft();
 	bool clear();
+	COORD getCoord();
 };
 #endif //JUMPMER

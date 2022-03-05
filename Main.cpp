@@ -33,7 +33,7 @@ int main(){
 
 	
  	jumper = new Jumper(&hConsole, coord, 6);
-	Platform* platf1 = new Platform(&hConsole, { -1,0 }, 6);
+	Platform* platf1 = new Platform(&hConsole, { 30,26 }, 6);
 	jumper->draw();
 	platf1->draw();
 

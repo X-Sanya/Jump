@@ -19,10 +19,6 @@ void Platform::checkCoord() {
 		this->coord.X = 0;
 }
 void Platform::chekSize() {
-	if (this->size > 5) {
-		this->size = 5;
-		return;
-	}
 	if (this->size < 1)
 		this->size = 1;
 }
